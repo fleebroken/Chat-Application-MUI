@@ -4,3 +4,11 @@
 git init
 git add .
 git commit -m "1st part completed -backend"
+
+git add .
+git commit -m "2nd part completed -frontend"
+
+./frontend/
+npm i react-router-dom
+
+react hot toast (react library for error or like alert)
