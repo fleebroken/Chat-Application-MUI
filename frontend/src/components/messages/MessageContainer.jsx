@@ -5,8 +5,12 @@ import useConversation from "../../zustand/useConversation";
 import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 
-const MessageContainer = () => {
+const MessageContainer = (message) => {
+    const { authUser } = useAuthContext();
     const {selectedConversation, setSelectedConversation} = useConversation();
+    const fromMe = message.senderId === authUser._id;
+    const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+    
 
     useEffect(() => {
         //cleanup function (unmounts)
@@ -20,10 +24,17 @@ const MessageContainer = () => {
         ) : (
                     <>
                     {/* Header */}
-                    <div className="bg-slate-500 px-4 py-2 mb-2">
-                        {/* <span className="label-text">To:</span> {" "} */}
-                        <span className="text-gray-90 font-bold">{selectedConversation.fullName}</span>
+                    <div className="bg-slate-500 bg-opacity-50 px-4 py-2 mb-2">
+                        <div className="chat-image avatar" style={{ display: 'flex', alignItems: 'center' }}>
+                            <div className="w-8 h-8 rounded-full overflow-hidden">
+                            <img alt="Profile" src={profilePic} className="w-full h-full object-cover" />
+                            </div>
+                            <span className="text-white font-bold" style={{ marginLeft: '8px' }}>
+                            {selectedConversation.fullName}
+                            </span>
+                        </div>
                     </div>
+
                     <Messages />
                     <MessageInput />
                     </>

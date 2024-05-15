@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { Button } from "@mui/material";
 
 const Login = () => {
 
@@ -18,45 +21,61 @@ const Login = () => {
         <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
             <h1 className="text-3xl font-semibold text-center text-gray-300">
                 Login
-            <span className="text-blue-500"> Chat App </span>
+            {/* <span className="text-blue-500"> Chat App </span> */}
             </h1>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label className="label p-2">
-                        <span className="text-base label-text text-white">Username</span>
-                    </label>
-                    <input type="text" placeholder="Enter username" className="w-full input input-bordered h-10" 
+        <Box onSubmit={handleSubmit}
+            component="form"
+            sx={{
+                '& .MuiTextField-root': { mt: 1, width: '100%'},
+                '& .MuiInputLabel-root': { color: "white" },
+                '& .MuiInputBase-input': { color: 'white' },
+            }}
+            noValidate
+            autoComplete="off"
+        >
+            <div>
+                <TextField
+                    id="outlined-username"
+                    label="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    />
+                    required
+                />
                 </div>
-
-                <div>
-                    <label className="label">
-                        <span className="text-base label-text text-white">
-                            Password
-                        </span>
-                    </label>
-                    <input type="password" placeholder="Enter Password" className="w-full input input-border h-10" 
+            <div>
+                <TextField
+                    id="outlined-password-input"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}                    
-                    />
-                </div>
-                <Link 
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />                    
+            </div>
+            <Link 
                 to="/signup" 
-                className="text-sm hover-underline hover:text-blue-600 mt-2 inline-block text-white">
-                    {"Don't"} have an accout?
+                className="text-sm hover-underline hover:text-blue-600 mt-3 mb-4 inline-block text-white">
+                    {"Don't"} have an account?
                 </Link>
                 <div>
-                    <button className="btn btn-block btn-sm mt-2"
-                    disabled = {loading}
-                    >
-                        {loading ? <span className="loading loading-spinner"></span> : "Login"}
+                    <Button 
+                    type="submit"
+                    variant="contained"
+                    // className="btn btn-block btn-sm mt-2"
+                    sx={{ borderRadius: "20em", margin: 'auto', display: 'block', padding: '.2rem 3em'}}
+                    disabled={loading}
+                >
+                    {loading ? <span className="loading loading-spinner"></span> : "Login"}
+                </Button>
 
-                    </button>
                 </div>
-            </form>
+        </Box>
+
+
+
+
 
         </div>
     </div>
@@ -64,3 +83,4 @@ const Login = () => {
 };
 
 export default Login;
+
